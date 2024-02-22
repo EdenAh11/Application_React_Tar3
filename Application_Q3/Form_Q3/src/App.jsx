@@ -9,6 +9,7 @@ import EditDetails from './FCEdit/EditDetails.jsx'
 import SystemAdmin from './FCAdmin/SystemAdmin.jsx'
 
 
+
 function App() {
 
  const [user, setUser] = useState("");
@@ -20,10 +21,12 @@ function App() {
  const [edit, setEdit] = useState("");
  const [sign, setSign] = useState("");
  const [profileS, setprofileS] = useState("");
+
+
  
   useEffect(() => {
     setUsers(localStorage.length == 0 ? "" :JSON.parse(localStorage["users"]));
-    setSession(sessionStorage.length == 0 ? "" :JSON.parse(sessionStorage["user"]))
+    setSession(sessionStorage.length == 0 ? "" :JSON.parse(sessionStorage["user"]));
   },[])
   
   //מקבל איזה כפתור לחצו הרשמה/כניסה 
@@ -82,14 +85,17 @@ function App() {
   const deleteU = (d) => {
     setUsers(d);
   }
- 
 
+  const getRegister = (r) => {
+    setUsers(r);
+  }
+ 
 
   return (
     <>
     <Login sendUser = {getUser} sendSign = {getSign} users = {users} />
 
-    {sign == "sign-Up" ? <Register /> : ""}
+    {sign == "sign-Up" ? <Register sendRegister = {getRegister}/> : ""}
 
     { session == "" ? <div><p>יש להיכנס למערכת </p></div> : "" }
 
@@ -97,11 +103,11 @@ function App() {
             <SystemAdmin users = {users} send2Edit = {get2Edit} deleteUser = {deleteU}/> : ""}
 
     {session != "" && sign == "login" && admin == "no" ?
-            <Profile user = {user} editProfile = {eProfile} logOutProfile = {logOut}/> : "" }
+            <Profile user = {user} editProfile = {eProfile} logOutProfile = {logOut} /> : "" }
  
     {profileS == "עדכון" ? <EditDetails user = {edit} sendEdit={getEdit} sendLocal = {getLocal} /> : ""}
 
-    
+
     
     
     

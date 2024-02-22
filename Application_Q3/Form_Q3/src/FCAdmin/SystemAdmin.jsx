@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import jsim from './fcjs.jpeg' ;
+import jsim from './fcjs.jpg' ;
 
 export default function SystemAdmin(props) {
     const [admin, setAdmin] = React.useState(props.users);

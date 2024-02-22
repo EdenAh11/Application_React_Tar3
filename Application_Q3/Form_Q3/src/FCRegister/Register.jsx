@@ -19,7 +19,7 @@ import SignpostOutlinedIcon from '@mui/icons-material/SignpostOutlined';
 import Swal from 'sweetalert2'
 
 
-export default function Form() {
+export default function Form(props) {
     const [showPassword, setShowPassword] = React.useState(false);
     const [counter, setCounter] = React.useState(0); //to know when register user
     const [users, setUsers] = React.useState([]);
@@ -80,6 +80,7 @@ export default function Form() {
       if(counter == 1)
       {
       localStorage.setItem("users",JSON.stringify(users));
+      props.sendRegister(users);
       }
     },[users])
     
@@ -101,7 +102,6 @@ export default function Form() {
      {
       validation();
      }
-   
       
    } 
 
@@ -120,7 +120,7 @@ export default function Form() {
     return (user.cpassword == user.password ? true : false);
   }
   const emailValidation = () => {
-    let pEmail = /^[a-zA-Z!#$%^&*()_+[\]{};:<>,.?~\\`|-]+[@]{1}[a-zA-Z]+.com$/;
+    let pEmail = /^[a-zA-Z0-9!#$%^&*()_+[\]{};:<>,.?~\\`|-]+[@]{1}[a-zA-Z]+.com$/;
     let e = user.email;
     return(e.match(pEmail)?true:false);
   }
@@ -130,6 +130,7 @@ const dateValidation = () => {
   let currentDate = new Date()
   let age = currentDate.getFullYear() - date.getFullYear()
     if(age < 18 || age >120){
+    alert("age must be younger than 120 and older than 18");
     return false;
   }
   return true;
