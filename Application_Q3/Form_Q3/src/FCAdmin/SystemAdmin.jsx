@@ -8,42 +8,22 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import jsim from './fcjs.jpeg' ;
 
-export default function SystemAdmin() {
-    const [admin, setAdmin] = React.useState(Check());
-    function Check(){
-        if(localStorage.length == 0)
-        {
-            return "";
-        }
-        return JSON.parse(localStorage["users"])
-    }
+export default function SystemAdmin(props) {
+    const [admin, setAdmin] = React.useState(props.users);
+    React.useEffect(() => {
+      setAdmin(props.users);
+    }, [props.users]);
 
-    function editUser(){
-        validation();
-       let localUser = JSON.parse(localStorage["users"]);
-       const indexToUpdate = localUser.findIndex(element => element.email === user.email);
-       if (indexToUpdate !== -1) {
-         localUser[indexToUpdate] = user;
-     
-         localStorage.setItem("users", JSON.stringify(localUser));
-       }
+    //מחיקת משתמש
+    function deleteUser(key){
+    
+            const newAdmin = admin.filter(item => item.email !== key.email);
+            localStorage.setItem("users",JSON.stringify(newAdmin));
+            setAdmin(newAdmin);
+            props.deleteUser(newAdmin);
+      
     }
-     function validation(){ 
-      let patterns ={
-        username : /^[\da-zA-Z!@#$%^&*()_+[\]{};:<>,.?~\`|-]+$/,
-        password : /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\{};:<>,.?~\\`|+$]).{7,12}$/,
-        email : /^[a-zA-Z!#$%^&*()_+[\]{};:<>,.?~\\`|-]+[@]{1}[a-zA-Z]+.com$/
-      } 
-      let u = user.username;
-      let s = user.password;
-      let e = user.email;
-      if(u.match(patterns.username) && s.match(patterns.password && e.match(patterns.email) )){
-        if(user.password == user.cpassword){
-        return true;
-        }
-    }
-     }
-
+    
   return (
     <Container style={{ border: "5px outset #F8F8FF",width:"900px"}}>
     <Row style={{borderBottom:"1px outset #F8F8FF"}}>
@@ -81,8 +61,8 @@ export default function SystemAdmin() {
             <p>{key.email}</p>
       </Col>
       <Col xs={2} md={2} className="text-right" style={{float:'right'}}>
-      <i class="bi bi-pencil-fill" style={{ color: 'white',backgroundColor:"blue"}} onClick={editUser} > </i>
-      <i class="bi bi-trash-fill" style={{ color: 'white',backgroundColor:"red"}}></i>
+      <Button size="sm" id='d' onClick={() => props.send2Edit(key)}><i class="bi bi-pencil-fill" > </i></Button>
+      <Button variant="danger" size="sm"style={{marginLeft : "5px"}} onClick={() => deleteUser(key)}><i class="bi bi-trash-fill" ></i></Button>
       </Col>
     </Row>
      )}

@@ -12,19 +12,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-export default function Profile() {
-    const [userProfile, setUserProfile] = React.useState(Check());
-    function Check(){
-        if(sessionStorage.length == 0)
-        {
-            return "";
-        }
-        return JSON.parse(sessionStorage["user"])
-    }
+export default function Profile(props) {
+
+    let userProfile = props.user;
+   
     function logoutUser(email){
-        if(email == userProfile.email)
+        if(email == userProfile.email);
         {
             sessionStorage.clear();    
+            props.logOutProfile("להתנתק")
         }
     }
   return (
@@ -42,13 +38,14 @@ export default function Profile() {
             <br /><br />
             <i class="bi bi-envelope-at" > {userProfile.email}</i> 
             <br /> 
-            <i class="bi bi-geo-alt" text-align="center" style={{marginRight:"15%"}}>{userProfile.street}</i>  
+            <i class="bi bi-geo-alt" text-align="center">{userProfile.street}</i>  
             <br />
             <i class="bi bi-cake2" >{userProfile.date}</i>
             <br />
-            <Button size='sm' variant="secondary">עדכון פרטים</Button>
+            <Button size='sm' variant="secondary" onClick={() => {props.editProfile(userProfile)}}>עדכון פרטים</Button>
             <Button size="sm" variant="primary">למשחק</Button>
             <Button size="sm" variant="danger" onClick={() => {logoutUser(userProfile.email)}}>התנתק</Button>
+            <br /> 
             </Col>
          
         </Row>
