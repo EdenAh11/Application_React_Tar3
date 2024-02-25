@@ -33,7 +33,7 @@ export default function Profile(props) {
       <Container style={{ border: "5px outset #F8F8FF",width:"400px"}}>
         <Row>
           <Col xs={4} md={4} className="text-right" >
-            <Image src={jsim} rounded alt="Alps" style={{ width:"100%" ,height:"70%",marginTop:"16%"}} />
+            <Image src={URL.createObjectURL(userProfile.file)} className='img-fluid' rounded alt="Alps" />
           </Col>
           <Col xs={8} md={8} className="text-right" >
             <h1 style={{float:"left", fontSize:"35px"}}>{userProfile.first +' '+userProfile.last}</h1>

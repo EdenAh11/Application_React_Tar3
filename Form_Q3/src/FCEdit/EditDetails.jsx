@@ -125,6 +125,14 @@ export default function EditDetails(props) {
     let l = user.last;
     return(l.match(pLast)?true:false);
   }
+  const streetNumValidation = () => {
+    let num = user.number;
+    if(num <= 0){
+      alert("street num must be bigger than 0");
+      return false;
+    }
+      return true;
+  }
   
   //פונקצית בדיקה כללית
      function validation(){ 
@@ -154,6 +162,9 @@ export default function EditDetails(props) {
         } else if (!lastValidation()) {
           refUser.last.current.value = "";
           refUser.last.current.focus();
+          return false;
+        }else if(!streetNumValidation()){
+          refUser.number.current.focus();
           return false;
         }
         else{
@@ -272,7 +283,7 @@ export default function EditDetails(props) {
           <FormControl sx={{ m: 1.5, width: '35ch', flexDirection: 'row', alignItems: 'center' }} variant="outlined">
           
           <label style={{textAlign:'center',marginRight: '15px',marginLeft:'25px' }} for="UploadFile">Upload_File: </label>
-          <input required type="file"ref={refUser.file} name='UploadFile' directory="./FCRegister"   accept=".jpg, .jpeg" style={{ display: 'block' }} onChange={(e) =>{setUser({...user,file:e.target.value,})}} />
+          <input required type="file"ref={refUser.file} name='UploadFile'   accept=".jpg, .jpeg" style={{ display: 'block' }} onChange={(e) =>{setUser({...user,file:e.target.files[0]})}} />
           
           </FormControl> <br />
           <FormControl sx={{ m: 1.5, width: '35ch' }} variant="outlined">
@@ -379,13 +390,13 @@ export default function EditDetails(props) {
           <FormControl sx={{ m: 1.5, width: '35ch', flexDirection: 'row', alignItems: 'center' }} variant="outlined">
          
           <label for="num" style={{marginRight:"10px"}} >Choose num : </label>
-          <input  type="number" id="numInput" name="num" pattern='^[+]?\d*\.?\d+$' required  onChange={(e) =>{setUser({...user,number:e.target.value,})}} ></input>
+          <input  type="number" id="numInput" name="num" pattern='^[+]?\d*\.?\d+$' required  onChange={(e) =>{setUser({...user,number:e.target.value,}); streetNumValidation()}} ></input>
          
         </FormControl><br />
       
        <Button type='submit' variant="outlined"  endIcon={<PersonAddAlt1Icon />} >
           Update User
-        </Button> <t />
+        </Button> 
      
         </div>
       

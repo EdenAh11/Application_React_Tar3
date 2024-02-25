@@ -97,7 +97,7 @@ function App() {
 
     {sign == "sign-Up" ? <Register sendRegister = {getRegister}/> : ""}
 
-    { session == "" ? <div><p>יש להיכנס למערכת </p></div> : "" }
+    { session == "" ? <div style={{ border: "5px outset #F8F8FF",width:"400px"}}><p>יש להיכנס למערכת </p></div> : "" }
 
     {sign == "login" && admin == "yes" ?
             <SystemAdmin users = {users} send2Edit = {get2Edit} deleteUser = {deleteU}/> : ""}

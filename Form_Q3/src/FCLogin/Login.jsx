@@ -60,8 +60,9 @@ export default function Login(props) {
  
 
   return (
-  <form >
-    <div className='container'>
+    <>
+  <form style={{ border: "5px outset #F8F8FF",width:"400px"}} >
+    <div className='container' >
     <FormControl sx={{ m: 1.5, width: '35ch' }} variant="outlined">
     <TextField
     required
@@ -123,7 +124,9 @@ export default function Login(props) {
       <Button type='button' variant="outlined" endIcon={<LoginIcon />} onClick={() => props.sendSign("sign-Up")}>
         Sign-Up
       </Button> <t />
-      </div><br /></form>
+      </div><br /></form> 
+      <br />
+      </> 
   )
 }
 

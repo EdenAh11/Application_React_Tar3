@@ -155,6 +155,15 @@ const lastValidation = () => {
   return(l.match(pLast)?true:false);
 }
 
+const streetNumValidation = () => {
+  let num = user.number;
+  if(num <= 0){
+    alert("street num must be bigger than 0");
+    return false;
+  }
+    return true;
+}
+
   //פונקציה כוללת של הבדיקות
    function validation(){ 
       if (!userValidation()) {
@@ -188,6 +197,9 @@ const lastValidation = () => {
         refUser.last.current.value = "";
         refUser.last.current.focus();
         return false;
+      } else if(!streetNumValidation()){
+        refUser.number.current.focus();
+        return false;
       }
       else{
         return true;
@@ -208,8 +220,8 @@ const lastValidation = () => {
     refUser.city.current.value = "";
    };
   return (
- 
- <form onSubmit={(e) => { e.preventDefault(); registerUser() }}>
+ <>
+ <form onSubmit={(e) => { e.preventDefault(); registerUser() }} style={{ border: "5px outset #F8F8FF",width:"400px"}} >
      <div className='container'>
       <h3><u>Register Form</u></h3> <br/>
       <FormControl sx={{ m: 1.5, width: '35ch' }} variant="outlined">
@@ -307,7 +319,7 @@ const lastValidation = () => {
         <FormControl sx={{ m: 1.5, width: '35ch', flexDirection: 'row', alignItems: 'center' }} variant="outlined">
         
         <label style={{textAlign:'center',marginRight: '15px',marginLeft:'25px' }} for="UploadFile">Upload_File: </label>
-        <input required type="file"ref={refUser.file} name='UploadFile' directory="./FCRegister"   accept=".jpg, .jpeg" style={{ display: 'block' }} onChange={(e) =>{setUser({...user,file:e.target.value,})}} />
+        <input required type="file"ref={refUser.file} name='UploadFile' accept=".jpg, .jpeg" style={{ display: 'block' }} onChange={(e) =>{setUser({...user,file:e.target.files[0]})}} />
         
         </FormControl> <br />
         <FormControl sx={{ m: 1.5, width: '35ch' }} variant="outlined">
@@ -415,17 +427,19 @@ const lastValidation = () => {
       /></FormControl><br />
         <FormControl sx={{ m: 1.5, width: '35ch', flexDirection: 'row', alignItems: 'center' }} variant="outlined">
        
-        <label for="num" style={{marginRight:"10px"}} >Choose num : </label>
-        <input  type="number" id="numInput" name="num" pattern='^[+]?\d*\.?\d+$' required  onChange={(e) =>{setUser({...user,number:e.target.value,})}} ></input>
+        <label for="num" style={{marginRight:"10px"}} >Street num : </label>
+        <input  type="number" id="numInput" name="num" pattern='^[+]?\d*\.?\d+$' required  onChange={(e) =>{setUser({...user,number:e.target.value,}); streetNumValidation()}} ></input>
        
       </FormControl><br />
     
      <Button type='submit' variant="outlined"  endIcon={<PersonAddAlt1Icon />} >
         Add User
-      </Button> <t />
+      </Button> 
    
       </div>
       <br />
-      </form> 
+      </form>
+      <br /> 
+      </>
   );
 }

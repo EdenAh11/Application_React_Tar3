@@ -46,7 +46,7 @@ export default function SystemAdmin(props) {
     {admin.map((key) =>
     <Row>
     <Col xs={2} md={2} className="text-right" style={{float:'right'}}>
-            <p> <Image src={jsim} rounded alt="Alps" style={{ height: "25px" }} />{key.username}</p>
+            <p> <Image src={URL.createObjectURL(key.file)} rounded alt="Alps" className='img-fluid' />{key.username}</p>
       </Col>
       <Col xs={2} md={2} className="text-right" style={{float:'right'}}>
             <p>{key.first + " " + key.last}</p>
