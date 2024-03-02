@@ -130,7 +130,6 @@ const dateValidation = () => {
   let currentDate = new Date()
   let age = currentDate.getFullYear() - date.getFullYear()
     if(age < 18 || age >120){
-    alert("age must be younger than 120 and older than 18");
     return false;
   }
   return true;
@@ -158,7 +157,6 @@ const lastValidation = () => {
 const streetNumValidation = () => {
   let num = user.number;
   if(num <= 0){
-    alert("street num must be bigger than 0");
     return false;
   }
     return true;
@@ -183,6 +181,7 @@ const streetNumValidation = () => {
         refUser.email.current.focus();
         return false;
       } else if (!dateValidation()) {
+        alert("age must be younger than 120 and older than 18");
         refUser.date.current.focus();
         return false;
       } else if (!streetValidation()) {
@@ -198,6 +197,7 @@ const streetNumValidation = () => {
         refUser.last.current.focus();
         return false;
       } else if(!streetNumValidation()){
+        alert("street num must be bigger than 0");
         refUser.number.current.focus();
         return false;
       }
